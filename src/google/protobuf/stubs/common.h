@@ -702,10 +702,11 @@ class LIBPROTOBUF_EXPORT LogFinisher {
 #undef GOOGLE_DCHECK_GT
 #undef GOOGLE_DCHECK_GE
 
+
 #define GOOGLE_LOG(LEVEL)                                                 \
   ::google::protobuf::internal::LogFinisher() =                           \
     ::google::protobuf::internal::LogMessage(                             \
-      ::google::protobuf::LOGLEVEL_##LEVEL, __FILE__, __LINE__)
+      ::google::protobuf::LOGLEVEL_INFO, __FILE__, __LINE__)//INFO to see if this compiles
 #define GOOGLE_LOG_IF(LEVEL, CONDITION) \
   !(CONDITION) ? (void)0 : GOOGLE_LOG(LEVEL)
 

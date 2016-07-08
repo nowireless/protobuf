@@ -47,6 +47,35 @@ namespace protobuf {
 // HP C++ on Tru64 does not have strtoll, but strtol is already 64-bit.
 #define strtoll strtol
 #define strtoull strtoul
+#elif defined(__VXWORKS__)
+#include <stdio.h>
+inline unsigned long long strtoull(const char *str, char **endptr, int base)
+{
+  unsigned long long val = 0;
+
+  if(base == 10) {
+    sscanf(str, "%llu", &val);
+  }
+  else if (base == 16) {
+    sscanf(str, "%llx", &val);
+  }
+
+  return val;
+}
+
+inline long long strtoll(const char *str, char **endptr, int base)
+{
+  long long val = 0;
+
+  if(base == 10) {
+    sscanf(str, "%lld", &val);
+  }
+  else if (base == 16) {
+    sscanf(str, "%llx", &val);
+  }
+
+  return val;
+}
 #endif
 
 // ----------------------------------------------------------------------

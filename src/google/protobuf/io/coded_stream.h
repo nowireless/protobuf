@@ -121,11 +121,21 @@
     #pragma runtime_checks("c", off)
   #endif
 #else
-  #include <sys/param.h>   // __BYTE_ORDER
-  #if defined(__BYTE_ORDER) && __BYTE_ORDER == __LITTLE_ENDIAN && \
-      !defined(PROTOBUF_DISABLE_LITTLE_ENDIAN_OPT_FOR_TEST)
-    #define PROTOBUF_LITTLE_ENDIAN 1
-  #endif
+	// __BYTE_ORDER
+	#ifdef __VXWORKS__
+		#include <vxWorks.h>
+		#if defined(_BYTE_ORDER) && _BYTE_ORDER == _LITTLE_ENDIAN && \
+		    !defined(PROTOBUF_DISABLE_LITTLE_ENDIAN_OPT_FOR_TEST)
+		  #define PROTOBUF_LITTLE_ENDIAN 1
+		#endif
+	#else
+	  #include <sys/param.h>
+		#if defined(__BYTE_ORDER) && __BYTE_ORDER == __LITTLE_ENDIAN && \
+		    !defined(PROTOBUF_DISABLE_LITTLE_ENDIAN_OPT_FOR_TEST)
+		  #define PROTOBUF_LITTLE_ENDIAN 1
+		#endif
+
+	#endif
 #endif
 #include <google/protobuf/stubs/common.h>
 
